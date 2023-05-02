@@ -1,16 +1,15 @@
 package com.eldarian;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 
 public class Main {
-
-    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
-
+    private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     static long sum = 0;
 
@@ -32,7 +31,7 @@ public class Main {
 
 
             } catch (Exception e) {
-                LOGGER.severe( "Exception in writer");
+                LOGGER.atError().log( "Exception in writer");
             }
 
         });
@@ -45,7 +44,7 @@ public class Main {
             } catch (ConcurrentModificationException e) {
                 e.printStackTrace();
             }
-            LOGGER.log(Level.INFO, Long.toString(sum));
+            LOGGER.atInfo().log(Long.toString(sum));
         });
         writerThread.start();
         try {
